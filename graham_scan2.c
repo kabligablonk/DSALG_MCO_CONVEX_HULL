@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "graham_scan2.h"
 #include "stack.h"
-#include "sort.h"
+#include "sort_fast.h"
 
 coordinate lowest_anchor(coordinate *points, int n) {
     int low_index = 0;

@@ -1,7 +1,5 @@
-#include "sort.h"
-#include "stack.h"
+#include "sort_fast.h"
 #include "graham_scan2.h"
-// slow algo
 
 // fast algo
 void quicksort(coordinate *points, coordinate anchor, int n) {
