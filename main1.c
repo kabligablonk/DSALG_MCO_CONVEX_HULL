@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <time.h>
+#include <windows.h>
 #include <stdbool.h>
 #include "stack.h"
 #include "graham_scan1.h"
@@ -9,10 +9,12 @@ int main(void) {
     char output_name[256];
     static coordinate points[STACK_SIZE];
     static coordinate hull[STACK_SIZE];
-    struct timespec start, end;
     bool is_running = true;
     int n;
     
+    LARGE_INTEGER frequency;
+    LARGE_INTEGER start, end;
+    QueryPerformanceFrequency(&frequency);
 
     while (is_running) {
         printf("Enter the input filename (with extension), or 'qq' to quit: ");
@@ -45,17 +47,13 @@ int main(void) {
             }
         }
 
-        timespec_get(&start, TIME_UTC);
+        QueryPerformanceCounter(&start);
 
         int m = slow_graham_scan(points, n, hull);
-       	timespec_get(&end, TIME_UTC);
-
-        long seconds = end.tv_sec - start.tv_sec;
-    	long nanoseconds = end.tv_nsec - start.tv_nsec;
-
-
-    	double elapsed_ms = ((double)(end.tv_sec - start.tv_sec) * 1000.0) +
-                    		((double)(end.tv_nsec - start.tv_nsec) / 1000000.0);
+		
+		QueryPerformanceCounter(&end);
+		
+        double elapsed_ms = (double)(end.QuadPart - start.QuadPart) * 1000.0 / (double)frequency.QuadPart;
     	
 
         FILE *fout = fopen(output_name, "w");
