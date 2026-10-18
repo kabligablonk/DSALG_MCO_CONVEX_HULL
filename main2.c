@@ -44,10 +44,10 @@ int main(void) {
             }
         }
 
-        timespec_get(&start, TIME_UTC);
+        clock_gettime(CLOCK_REALTIME, &start);
 
         int m = graham_scan_fast(points, n, hull);
-        timespec_get(&end, TIME_UTC);
+        clock_gettime(CLOCK_REALTIME, &end);
 
         double elapsed_seconds = (end.tv_sec - start.tv_sec) +
                                  (end.tv_nsec - start.tv_nsec) / 1000000000.0;
