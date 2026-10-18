@@ -15,7 +15,7 @@ int FindAnchor(coordinate *points, int n){
 	
 	//Gets index of lowest val
 	for(i = 0; i < n; i++){
-		if(points[i].y < min || points[i].y == min && points[i].x < lowest_x){
+		if(points[i].y < min || (points[i].y == min && points[i].x < lowest_x)){
 			min = points[i].y;
 			lowest_x = points[i].x;
 			index_min = i;
@@ -110,4 +110,3 @@ int slow_graham_scan(coordinate *points, int n, coordinate *hull){
     return hull_size;
 }
  
-
