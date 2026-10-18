@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdbool.h>
+#include <windows.h>
 #include "stack.h"
 #include "graham_scan2.h"
 
@@ -9,7 +10,9 @@ int main(void) {
     char output_name[256];
     static coordinate points[STACK_SIZE];
     static coordinate hull[STACK_SIZE];
-    struct timespec start, end;
+    LARGE_INTEGER frequency;
+    LARGE_INTEGER start, end;
+    QueryPerformanceFrequency(&frequency);
     bool is_running = true;
     int n;
 
@@ -44,13 +47,11 @@ int main(void) {
             }
         }
 
-        clock_gettime(CLOCK_REALTIME, &start);
-
+        QueryPerformanceCounter(&start);
         int m = graham_scan_fast(points, n, hull);
-        clock_gettime(CLOCK_REALTIME, &end);
+        QueryPerformanceCounter(&end);
 
-        double elapsed_seconds = (end.tv_sec - start.tv_sec) +
-                                 (end.tv_nsec - start.tv_nsec) / 1000000000.0;
+        double elapsed_ms = (double)(end.QuadPart - start.QuadPart) * 1000.0 / (double)frequency.QuadPart;
 
         FILE *fout = fopen(output_name, "w");
         if (fout == NULL) {
@@ -66,7 +67,7 @@ int main(void) {
 
         fclose(fin);
         fclose(fout);
-        printf("Elapsed time: %.6f milliseconds\n", elapsed_seconds*1000);
+        printf("Elapsed time: %.6f milliseconds\n", elapsed_ms);
     }
     return 0;
 }
