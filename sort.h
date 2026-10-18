@@ -1,8 +1,8 @@
-//
-// Created by Kabligablonk on 10/15/26.
-//
-
 #ifndef DSALG_MCO_CONVEX_HULL_SORT_H
 #define DSALG_MCO_CONVEX_HULL_SORT_H
+
+#include "graham_scan2.h"
+
+void quicksort(coordinate *points, coordinate anchor, int n);
 
 #endif //DSALG_MCO_CONVEX_HULL_SORT_H

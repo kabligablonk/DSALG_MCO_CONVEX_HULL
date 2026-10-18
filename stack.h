@@ -6,8 +6,8 @@
 #define STACK_SIZE 32768
 
 typedef struct {
-    int x;
-    int y;
+    double x;
+    double y;
 } coordinate;
 
 typedef struct {
