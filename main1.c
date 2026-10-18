@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 #include <windows.h>
 #include <stdbool.h>
 #include "stack.h"
@@ -18,7 +19,7 @@ int main(void) {
 
     while (is_running) {
         printf("Enter the input filename (with extension), or 'qq' to quit: ");
-        if (scanf("%255s", input_name) != 1 || input_name[0] == 'q' && input_name[1] == 'q') {
+        if (scanf("%255s", input_name) != 1 || (input_name[0] == 'q' && input_name[1] == 'q')) {
             return 1;
         }
 
